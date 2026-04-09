@@ -1,0 +1,16 @@
+{
+  "_desc": "筛选测试规格 — 用于 L2.6 ~ L2.9",
+  "status_filter": {
+    "test_status": "生产中",
+    "expected_result": "仅显示状态为'生产中'的订单（种子数据中有1条）"
+  },
+  "customer_filter": {
+    "test_customer": "北京星辰科技有限公司",
+    "expected_result": "仅显示该客户的订单（种子数据中 CUS-001 有2条）"
+  },
+  "combined_filter": {
+    "status": "已完成",
+    "customer": "上海云端网络技术公司",
+    "expected_result": "同时满足两个条件的订单"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "_desc": "编辑订单测试输入数据 — 用于 L2.1",
+  "target_order": "列表中第一条订单",
+  "modifications": {
+    "change_quantity": {
+      "product": "第一个商品明细行",
+      "new_quantity": 10,
+      "note": "修改数量后验证小计和总额重新计算"
+    },
+    "add_item": {
+      "product": "便携充电宝 20000mAh",
+      "quantity": 2,
+      "expected_unit_price": 189.00,
+      "expected_subtotal": 378.00,
+      "note": "新增一行明细后验证总额更新"
+    }
+  }
+}

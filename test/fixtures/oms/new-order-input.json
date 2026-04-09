@@ -1,0 +1,21 @@
+{
+  "_desc": "新建订单测试输入数据 — 用于 L1.2 / L2.1 / L2.10",
+  "customer": "北京星辰科技有限公司",
+  "date": "auto (today)",
+  "items": [
+    {
+      "product": "智能手表 Pro",
+      "quantity": 3,
+      "expected_unit_price": 1299.00,
+      "expected_subtotal": 3897.00
+    },
+    {
+      "product": "无线蓝牙耳机",
+      "quantity": 5,
+      "expected_unit_price": 399.00,
+      "expected_subtotal": 1995.00
+    }
+  ],
+  "expected_total": 5892.00,
+  "remark": "测试订单"
+}
