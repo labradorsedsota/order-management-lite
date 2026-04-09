@@ -28,8 +28,14 @@ https://labradorsedsota.github.io/order-management-lite/
 open -a "Google Chrome" "https://labradorsedsota.github.io/order-management-lite/"
 sleep 3
 
-# 2. 窗口最大化
-osascript -e 'tell application "Google Chrome" to set bounds of front window to {0, 0, 1920, 1080}'
+# 2. 窗口最大化（动态获取屏幕实际尺寸，不写死数值）
+osascript -e '
+tell application "Finder"
+    set _b to bounds of window of desktop
+    tell application "Google Chrome"
+        set bounds of front window to {0, 0, item 3 of _b, item 4 of _b}
+    end tell
+end tell'
 ```
 
 ### localStorage 清空脚本（L3.2/L3.3/L3.6 专用）
@@ -194,7 +200,13 @@ sleep 2
 # 标准流程 + 清空 localStorage
 open -a "Google Chrome" "https://labradorsedsota.github.io/order-management-lite/"
 sleep 3
-osascript -e 'tell application "Google Chrome" to set bounds of front window to {0, 0, 1920, 1080}'
+osascript -e '
+tell application "Finder"
+    set _b to bounds of window of desktop
+    tell application "Google Chrome"
+        set bounds of front window to {0, 0, item 3 of _b, item 4 of _b}
+    end tell
+end tell'
 osascript -e '
 tell application "Google Chrome"
     tell active tab of front window
@@ -573,7 +585,13 @@ sleep 3
 ```bash
 open -a "Google Chrome" "https://labradorsedsota.github.io/order-management-lite/"
 sleep 3
-osascript -e 'tell application "Google Chrome" to set bounds of front window to {0, 0, 1920, 1080}'
+osascript -e '
+tell application "Finder"
+    set _b to bounds of window of desktop
+    tell application "Google Chrome"
+        set bounds of front window to {0, 0, item 3 of _b, item 4 of _b}
+    end tell
+end tell'
 # 清空所有数据（包括种子标记），然后注入空数组以阻止种子数据重新注入
 osascript -e '
 tell application "Google Chrome"
@@ -705,7 +723,13 @@ sleep 3
 ```bash
 open -a "Google Chrome" "https://labradorsedsota.github.io/order-management-lite/"
 sleep 3
-osascript -e 'tell application "Google Chrome" to set bounds of front window to {0, 0, 1920, 1080}'
+osascript -e '
+tell application "Finder"
+    set _b to bounds of window of desktop
+    tell application "Google Chrome"
+        set bounds of front window to {0, 0, item 3 of _b, item 4 of _b}
+    end tell
+end tell'
 # 注入损坏的 JSON 数据
 osascript -e '
 tell application "Google Chrome"
