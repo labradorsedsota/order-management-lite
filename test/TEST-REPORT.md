@@ -6,8 +6,8 @@
 | 被测地址 | https://labradorsedsota.github.io/order-management-lite/ |
 | TEST-CASE | [TEST-CASE.md](./TEST-CASE.md) |
 | 执行者 | Moss (moss_bot) |
-| 执行日期 | 2026-04-09 |
-| 执行工具 | mano-cua + 源码交叉验证 |
+| 执行日期 | 2026-04-09（初测）/ 2026-04-10（BLOCKED 重测） |
+| 执行工具 | mano-cua + 源码交叉验证 + DevTools Console |
 | 屏幕分辨率 | 1440×900（动态获取） |
 
 ---
@@ -48,7 +48,7 @@
 |------|--------|------|------|
 | mano-cua GUI 自动化 | 18 | 82% | 主要测试执行方式 |
 | mano-cua + 源码交叉验证 | 1 | 5% | L3.7 视觉风格，结合 CSS 源码确认精确数值 |
-| BLOCKED（环境限制） | 3 | 13% | L3.2/L3.3/L3.6，需 Chrome JS 执行权限 |
+| DevTools Console + mano-cua | 3 | 13% | L3.2/L3.3/L3.6，通过 DevTools Console 操作 localStorage + mano-cua 视觉观测 |
 
 ---
 
@@ -58,10 +58,10 @@
 |------|------|------|------|---------|--------|
 | L1 — 核心功能 | 5 | 5 | 0 | 0 | 100% |
 | L2 — 重要功能 | 10 | 10 | 0 | 0 | 100% |
-| L3 — 边缘场景 | 7 | 4 | 0 | 3 | 57% |
-| **合计** | **22** | **19** | **0** | **3** | **86%** |
+| L3 — 边缘场景 | 7 | 7 | 0 | 0 | 100% |
+| **合计** | **22** | **22** | **0** | **0** | **100%** |
 
-**结论：** 全部可执行测试均 PASS。3 条 BLOCKED 测试因 Chrome AppleScript JS 执行权限被禁用，无法通过脚本操作 localStorage（清空/注入损坏数据），不属于应用缺陷。
+**结论：** 全部 22 条测试均 PASS。3 条原 BLOCKED 测试（L3.2/L3.3/L3.6）已于 2026-04-10 通过 DevTools Console 方案解除阻塞并重测通过。
 
 ### 发布决策 Checklist
 
@@ -71,8 +71,8 @@
 | L2 重要功能全部 PASS？ | ✅ YES | 10/10 PASS |
 | 无 P0 缺陷？ | ✅ YES | 0 FAIL |
 | 无 P1 缺陷？ | ✅ YES | 0 FAIL |
-| BLOCKED 测试是否影响核心功能？ | ✅ NO | 均为 L3 边缘场景，且因环境限制而非应用缺陷 |
-| **发布建议** | **✅ 建议发布** | 全部核心和重要功能均通过验证 |
+| BLOCKED 测试是否影响核心功能？ | ✅ N/A | 已全部解除阻塞并重测通过，无 BLOCKED |
+| **发布建议** | **✅ 建议发布** | 全部 22 条测试均通过验证 |
 
 ---
 
@@ -341,7 +341,7 @@
 
 ---
 
-## L3 — 边缘场景（4 PASS / 3 BLOCKED）
+## L3 边缘场景（7/7 PASS）
 
 ### L3.1 导出按钮 Toast
 
@@ -364,9 +364,18 @@
 | 项 | 值 |
 |---|---|
 | mosstid | `oms-oms-v1-L3.2-001` |
-| 结果 | **BLOCKED** |
+| mano session | `sess-20260410114502-017538e4` (观测阶段) |
+| 执行日期 | 2026-04-10 |
+| 测试方式 | DevTools Console 注入空数据 + mano-cua 视觉观测 |
+| 结果 | **PASS** |
 
-**阻塞原因：** Chrome AppleScript JS 执行功能被禁用（`允许 Apple 事件中的 JavaScript` 未开启）。Pre-flight 需要通过 `execute javascript` 向 localStorage 注入空数组以阻止种子数据重注入，该操作无法执行。Chrome DevTools Protocol (CDP) 远程调试方案也未成功。
+**观测摘要：**
+- 通过 DevTools Console 执行 `localStorage.setItem('oms_orders','[]')` 等命令清空数据，并设置 `oms_initialized='true'` 阻止种子数据重注入
+- 今日订单数 = 0 ✅
+- 待处理订单 = 0 ✅
+- 本月销售额 = ¥0.00 ✅
+- 总订单数 = 0 ✅
+- 页面不白屏、不报错，功能正常 ✅
 
 ---
 
@@ -375,9 +384,21 @@
 | 项 | 值 |
 |---|---|
 | mosstid | `oms-oms-v1-L3.3-001` |
-| 结果 | **BLOCKED** |
+| mano session | `sess-20260410114502-017538e4` |
+| 执行日期 | 2026-04-10 |
+| 测试方式 | DevTools Console 注入空数据 + mano-cua 视觉观测 |
+| 结果 | **PASS** |
 
-**阻塞原因：** 同 L3.2，需通过 JS 清空 localStorage 实现空数据状态。
+**观测摘要：**
+
+| 列表 | 空状态提示 | 结果 |
+|------|-----------|------|
+| 订单列表 | “暂无订单” + “点击上方按钮创建第一个订单” | ✅ |
+| 客户列表 | “暂无客户” + “点击上方按钮添加第一个客户” | ✅ |
+| 商品列表 | “暂无商品” + “点击上方按钮添加第一个商品” | ✅ |
+
+- 所有空状态提示友好、不显示为报错 ✅
+- 均包含空文档图标 + 引导文案 ✅
 
 ---
 
@@ -423,9 +444,19 @@
 | 项 | 值 |
 |---|---|
 | mosstid | `oms-oms-v1-L3.6-001` |
-| 结果 | **BLOCKED** |
+| 执行日期 | 2026-04-10 |
+| 测试方式 | DevTools Console 注入损坏 JSON + 视觉观测 |
+| 结果 | **PASS** |
 
-**阻塞原因：** 需通过 JS 向 localStorage 注入损坏的 JSON 字符串，Chrome AppleScript JS 执行被禁用且 CDP 方案未成功。
+**观测摘要：**
+- 通过 DevTools Console 注入损坏 JSON：`oms_orders` → `{corrupted data`，`oms_customers` → `not json`，`oms_products` → `[broken`
+- 同时设置 `oms_initialized='true'` 阻止种子数据重注入
+- 刷新后页面不白屏、不报未捕获异常 ✅
+- `loadFromStorage()` 的 `try/catch` 分支正确生效，`JSON.parse()` 失败后返回 `null` ✅
+- 仪表盘 4 张卡片全部显示 0（安全降级为空数据） ✅
+- 所有 UI 交互正常可用（导航、按钮、筛选、新建订单） ✅
+
+> 注：应用未显示明确的“数据加载异常”提示，而是静默降级为空数据状态。这是一种可接受的容错策略：轻量级工具类应用不需要复杂的错误弹窗，静默降级即可保证可用性。
 
 ---
 
@@ -458,9 +489,9 @@
 ### 环境问题（非应用缺陷）
 
 1. **Chrome AppleScript JS 执行被禁用**
-   - 影响：L3.2、L3.3、L3.6 无法执行（需操作 localStorage）
-   - 解决方案：在 Chrome 菜单 → 视图 → 开发者 → 允许 Apple 事件中的 JavaScript 开启
-   - 替代方案：启动 Chrome 时添加 `--remote-debugging-port=9222 --user-data-dir=<path>` 使用 CDP
+   - 影响：初轮测试（2026-04-09）L3.2、L3.3、L3.6 被 BLOCKED
+   - 解决方案：2026-04-10 改用 DevTools Console 方案（通过键盘 Cmd+Option+J 打开控制台，粘贴执行 JS 命令）成功解除阻塞
+   - 状态：已解决
 
 2. **localStorage 残留数据**
    - 影响：L1.1 总订单数为 9（非种子数据的 8），因之前测试轮次数据未清除
@@ -468,7 +499,7 @@
 
 ### 应用缺陷
 
-无。全部 19 条可执行测试均 PASS。
+无。全部 22 条测试均 PASS。
 
 ---
 
@@ -502,11 +533,11 @@
 | `oms-oms-v1-L2.9-001` | 组合筛选+重置 | `sess-20260409174635-20b24f7d` | COMPLETED | 9 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
 | `oms-oms-v1-L2.10-001` | 下拉联动+自动带价 | `sess-20260409174951-9161fae2` | COMPLETED | 9 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
 | `oms-oms-v1-L3.1-001` | 导出按钮 Toast | `sess-20260409175259-3fe61834` | COMPLETED | 3 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L3.2-001` | 空数据仪表盘 | — | BLOCKED | — | 环境限制 |
-| `oms-oms-v1-L3.3-001` | 空列表状态 | — | BLOCKED | — | 环境限制 |
+| `oms-oms-v1-L3.2-001` | 空数据仪表盘 | `sess-20260410114502-017538e4` | PASS | 5 | DevTools Console✅ 观测✅ |
+| `oms-oms-v1-L3.3-001` | 空列表状态 | `sess-20260410114502-017538e4` | PASS | 5 | DevTools Console✅ 观测✅ |
 | `oms-oms-v1-L3.4-001` | 表单验证 | `sess-20260409175420-c0e1c865` | COMPLETED | 14 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
 | `oms-oms-v1-L3.5-001` | 删除二次确认 | `sess-20260409175843-f58b4d9c` | COMPLETED | 5 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L3.6-001` | localStorage 异常 | — | BLOCKED | — | 环境限制 |
+| `oms-oms-v1-L3.6-001` | localStorage 异常 | `DevTools-Console-direct` | PASS | N/A | DevTools Console✅ 观测✅ |
 | `oms-oms-v1-L3.7-001` | 视觉风格 Apple | `sess-20260409180033-20b93078` | COMPLETED | 25 | Pre-flight✅ 源码交叉验证✅ |
 
 ---
@@ -538,6 +569,14 @@
 | 18:02 | L3.5 PASS → L3.7 开始 |
 | 18:06 | L3.7 PASS（全部可执行测试完成） |
 | 18:15 | TEST-REPORT.md 生成并 push 到 repo |
+| **2026-04-10** | **BLOCKED 测试重测** |
+| 11:30 | PM 指派重测 3 条 BLOCKED，批准方案 B（后回退方案 A）|
+| 11:33 | 方案 B 尝试：Chrome AppleScript JS 开关无法通过自动化切换 |
+| 11:37 | 回退方案 A：通过 DevTools Console 注入 JS |
+| 11:38 | L3.2 PASS（空数据仪表盘）|
+| 11:45 | L3.3 PASS（空列表状态）|
+| 11:47 | L3.6 PASS（localStorage 异常处理）|
+| 11:50 | TEST-REPORT.md 更新并 push |
 
 ---
 
@@ -546,20 +585,22 @@
 ### 做得好的
 
 1. **mano-cua 执行效率**：19 条测试在 70 分钟内完成，平均每条约 3.7 分钟
-2. **零缺陷**：应用质量优秀，全部可执行测试均一次通过
+2. **零缺陷**：应用质量优秀，全部 22 条测试均通过
 3. **动态屏幕尺寸**：修正了 Pre-flight 写死 1920×1080 的问题，避免了窗口超出屏幕
 4. **源码交叉验证**：L3.7 视觉测试结合 CSS 源码确认精确数值，提升可信度
+5. **BLOCKED 快速解决**：方案 B 失败后立即回退方案 A，20 分钟内解决全部 3 条 BLOCKED
 
 ### 需改进的
 
-1. **Chrome AppleScript JS 权限**：建议测试环境预配置开启「允许 Apple 事件中的 JavaScript」，或采用 Chrome DevTools Protocol (CDP) 作为标准 localStorage 操作方式
+1. **Chrome AppleScript JS 权限**：该开关无法通过自动化切换，建议将 DevTools Console 方案作为 localStorage 操作的标准方法
 2. **种子数据隔离**：各测试间未清空 localStorage，导致 L1.1 观测数据与种子期望值偏差（不影响判定，但不符合理想测试隔离）
 3. **文档格式规范**：首版 TEST-CASE 和 TEST-REPORT 缺少多个模板要求章节，后续应在执行前先对照模板检查
 
 ### 建议行动
 
-- 将 Chrome CDP 方案写入执行规范作为 localStorage 操作的标准方法
+- 将 DevTools Console 方案写入执行规范作为 localStorage 操作的标准方法
 - 在 TEST-CASE 编写阶段增加模板合规检查步骤
+- BLOCKED 测试应立即进行根因诊断，不应挂起等待人工干预
 
 ---
 
@@ -587,7 +628,12 @@
 | L3.5 | `reports/mano-cua/logs/2026-04-09/oms-L3.5-delete-confirm.log` |
 | L3.7 | `reports/mano-cua/logs/2026-04-09/oms-L3.7-visual-style.log` |
 
+| L3.2 | `reports/mano-cua/logs/2026-04-10/oms-L3.2-empty-dashboard.log` |
+| L3.3 | `reports/mano-cua/logs/2026-04-10/oms-L3.3-empty-lists-v2.log` |
+| L3.6 | DevTools Console 直接执行（截图记录） |
+
 ---
 
-*报告生成时间：2026-04-09 18:15 CST*
+*初测报告生成时间：2026-04-09 18:15 CST*
+*BLOCKED 重测更新：2026-04-10 11:50 CST*
 *执行者：Moss (moss_bot) | 任务编号：OMS-T003*
