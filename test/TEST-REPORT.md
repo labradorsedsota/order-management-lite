@@ -363,7 +363,7 @@
 | 项 | 值 |
 |---|---|
 | mosstid | `oms-oms-v1-L3.2-001` |
-| mano session | `sess-20260410114502-017538e4` (观测阶段) |
+| mano session | `sess-20260410114502-017538e4b64b46189b4abbc7d9d56fa5` (观测阶段) |
 | 执行日期 | 2026-04-10 |
 | 测试方式 | DevTools Console 注入空数据 + mano-cua 视觉观测 |
 | 结果 | **PASS** |
@@ -383,7 +383,7 @@
 | 项 | 值 |
 |---|---|
 | mosstid | `oms-oms-v1-L3.3-001` |
-| mano session | `sess-20260410114502-017538e4` |
+| mano session | `sess-20260410114502-017538e4b64b46189b4abbc7d9d56fa5` |
 | 执行日期 | 2026-04-10 |
 | 测试方式 | DevTools Console 注入空数据 + mano-cua 视觉观测 |
 | 结果 | **PASS** |
@@ -443,7 +443,7 @@
 | 项 | 值 |
 |---|---|
 | mosstid | `oms-oms-v1-L3.6-001` |
-| mano session | `sess-20260410140201-349da4bb` |
+| mano session | `sess-20260410140201-349da4bb419a43ebabdc702a2b6d735d` |
 | 执行日期 | 2026-04-10 |
 | 测试方式 | DevTools Console 注入损坏 JSON + mano-cua 视觉观测 |
 | 结果 | **PASS** |
@@ -518,28 +518,28 @@
 
 | mosstid | 测试名称 | Session ID | 状态 | Steps | 合规检查 |
 |---------|---------|------------|------|-------|----------|
-| `oms-oms-v1-L1.1-001` | 仪表盘统计卡片 | `sess-20260409165810-304decc4` | COMPLETED | 1 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L1.2-001` | 新建多商品订单 | `sess-20260409170001-1639294444` | COMPLETED | 14 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L1.3-001` | 订单状态全流程 | `sess-20260409170528-86284073` | COMPLETED | 6 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L1.4-001` | 仪表盘实时刷新 | `sess-20260409171420-ce29a0ed` | COMPLETED | 7 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L1.5-001` | 数据持久化 | `sess-20260409171805-f9d06651` | COMPLETED | 7 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.1-001` | 编辑订单金额更新 | `sess-20260409172046-85ef7be9` | COMPLETED | 10 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.2-001` | 删除订单 | `sess-20260409172630-caf07a3e` | COMPLETED | 5 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.3-001` | 删除商品明细行 | `sess-20260409172833-133cd9ff` | COMPLETED | 10 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.4-001` | 客户 CRUD | `sess-20260409173149-2e259c21` | COMPLETED | 16 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.5-001` | 商品 CRUD | `sess-20260409173520-eb2a4856` | COMPLETED | 17 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.6-001` | 按状态筛选 | `sess-20260409174034-55baee38` | COMPLETED | 3 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.7-001` | 按客户筛选 | `sess-20260409174208-2d726701` | COMPLETED | 3 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.8-001` | 按日期范围筛选 | `sess-20260409174340-460248f6` | COMPLETED | 8 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.9-001` | 组合筛选+重置 | `sess-20260409174635-20b24f7d` | COMPLETED | 9 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L2.10-001` | 下拉联动+自动带价 | `sess-20260409174951-9161fae2` | COMPLETED | 9 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L3.1-001` | 导出按钮 Toast | `sess-20260409175259-3fe61834` | COMPLETED | 3 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L3.2-001` | 空数据仪表盘 | `sess-20260410114502-017538e4` | PASS | 5 | DevTools Console✅ 观测✅ |
-| `oms-oms-v1-L3.3-001` | 空列表状态 | `sess-20260410114502-017538e4` | PASS | 5 | DevTools Console✅ 观测✅ |
-| `oms-oms-v1-L3.4-001` | 表单验证 | `sess-20260409175420-c0e1c865` | COMPLETED | 14 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L3.5-001` | 删除二次确认 | `sess-20260409175843-f58b4d9c` | COMPLETED | 5 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L3.6-001` | localStorage 异常 | `sess-20260410140201-349da4bb` | PASS | 3 | DevTools Console✅ 观测✅ |
-| `oms-oms-v1-L3.7-001` | 视觉风格 Apple | `sess-20260409180033-20b93078` | COMPLETED | 25 | Pre-flight✅ 源码交叉验证✅ |
+| `oms-oms-v1-L1.1-001` | 仪表盘统计卡片 | `sess-20260409165810-304decc4067945d4bd8dbd58cea0fd10` | COMPLETED | 1 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L1.2-001` | 新建多商品订单 | `sess-20260409170001-1639294444354cb0b7e9dcc033cb42ff` | COMPLETED | 14 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L1.3-001` | 订单状态全流程 | `sess-20260409170528-86284073dd9b4507a53efd612d725f2b` | COMPLETED | 6 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L1.4-001` | 仪表盘实时刷新 | `sess-20260409171420-ce29a0edf24a43889277e5cca87f1899` | COMPLETED | 7 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L1.5-001` | 数据持久化 | `sess-20260409171805-f9d0665167fc4815b76657e18d474485` | COMPLETED | 7 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.1-001` | 编辑订单金额更新 | `sess-20260409172046-85ef7be9a5604c70a491375e0fecc5c0` | COMPLETED | 10 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.2-001` | 删除订单 | `sess-20260409172630-caf07a3e62134fe1a13c76f8d9828e99` | COMPLETED | 5 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.3-001` | 删除商品明细行 | `sess-20260409172833-133cd9ff7d594acf825becb1bcba9e65` | COMPLETED | 10 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.4-001` | 客户 CRUD | `sess-20260409173149-2e259c21a35c41bcac1a98b7d53a7b1d` | COMPLETED | 16 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.5-001` | 商品 CRUD | `sess-20260409173520-eb2a4856cdfa44f1a9b7c041efaaffb3` | COMPLETED | 17 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.6-001` | 按状态筛选 | `sess-20260409174034-55baee3812c7476cad9645501a545247` | COMPLETED | 3 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.7-001` | 按客户筛选 | `sess-20260409174208-2d72670181104e0e9f1f464da72af0b8` | COMPLETED | 3 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.8-001` | 按日期范围筛选 | `sess-20260409174340-460248f669094c8db085096e975cda50` | COMPLETED | 8 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.9-001` | 组合筛选+重置 | `sess-20260409174635-20b24f7d5c5c4f0087a6431d7b5c78d8` | COMPLETED | 9 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L2.10-001` | 下拉联动+自动带价 | `sess-20260409174951-9161fae23675402ab1a54def2bb56998` | COMPLETED | 9 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L3.1-001` | 导出按钮 Toast | `sess-20260409175259-3fe6183463d0407ba3a2481bf69113b4` | COMPLETED | 3 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L3.2-001` | 空数据仪表盘 | `sess-20260410114502-017538e4b64b46189b4abbc7d9d56fa5` | PASS | 5 | DevTools Console✅ 观测✅ |
+| `oms-oms-v1-L3.3-001` | 空列表状态 | `sess-20260410114502-017538e4b64b46189b4abbc7d9d56fa5` | PASS | 5 | DevTools Console✅ 观测✅ |
+| `oms-oms-v1-L3.4-001` | 表单验证 | `sess-20260409175420-c0e1c865b8c14eb4aa2e57f68553a66f` | COMPLETED | 14 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L3.5-001` | 删除二次确认 | `sess-20260409175843-f58b4d9c7506428d87d1cb832d0c39f0` | COMPLETED | 5 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
+| `oms-oms-v1-L3.6-001` | localStorage 异常 | `sess-20260410140201-349da4bb419a43ebabdc702a2b6d735d` | PASS | 3 | DevTools Console✅ 观测✅ |
+| `oms-oms-v1-L3.7-001` | 视觉风格 Apple | `sess-20260409180033-20b93078efef4ca2b4da4ebb966b04d9` | COMPLETED | 25 | Pre-flight✅ 源码交叉验证✅ |
 
 ---
 
