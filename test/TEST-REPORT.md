@@ -635,10 +635,10 @@
 
 | L3.2 | `reports/mano-cua/logs/2026-04-10/oms-L3.2-empty-dashboard.log` |
 | L3.3 | `reports/mano-cua/logs/2026-04-10/oms-L3.3-empty-lists-v2.log` |
-| L3.6 | DevTools Console 直接执行（截图记录） |
+| L3.6 | `reports/mano-cua/logs/2026-04-10/oms-L3.6-corrupted-mano.log` |
 
 ---
 
 *初测报告生成时间：2026-04-09 18:15 CST*
-*BLOCKED 重测更新：2026-04-10 11:50 CST*
+*BLOCKED 重测更新：2026-04-10 14:02 CST*
 *执行者：Moss (moss_bot) | 任务编号：OMS-T003*
