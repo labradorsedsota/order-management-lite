@@ -46,10 +46,8 @@
 
 | 方式 | 测试数 | 占比 | 说明 |
 |------|--------|------|------|
-| mano-cua GUI 自动化 | 18 | 82% | 主要测试执行方式 |
+| mano-cua GUI 自动化 | 21 | 95% | 主要测试执行方式（含 L3.2/L3.3/L3.6，Pre-flight 策略二通过 DevTools Console 预处理） |
 | mano-cua + 源码交叉验证 | 1 | 5% | L3.7 视觉风格，结合 CSS 源码确认精确数值 |
-
-| DevTools Console + mano-cua | 3 | 14% | L3.2/L3.3/L3.6，通过 DevTools Console 操作 localStorage + mano-cua 视觉观测 |
 
 ---
 
