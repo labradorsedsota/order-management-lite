@@ -48,8 +48,8 @@
 |------|--------|------|------|
 | mano-cua GUI 自动化 | 18 | 82% | 主要测试执行方式 |
 | mano-cua + 源码交叉验证 | 1 | 5% | L3.7 视觉风格，结合 CSS 源码确认精确数值 |
-| DevTools Console + mano-cua | 2 | 9% | L3.2/L3.3，通过 DevTools Console 操作 localStorage + mano-cua 视觉观测 |
-| DevTools Console 直接操作 | 1 | 5% | L3.6，AppleScript 键盘模拟打开 DevTools Console + 粘贴 JS 命令 + 系统截屏验证 |
+
+| DevTools Console + mano-cua | 3 | 14% | L3.2/L3.3/L3.6，通过 DevTools Console 操作 localStorage + mano-cua 视觉观测 |
 
 ---
 
@@ -445,8 +445,9 @@
 | 项 | 值 |
 |---|---|
 | mosstid | `oms-oms-v1-L3.6-001` |
+| mano session | `sess-20260410140201-349da4bb` |
 | 执行日期 | 2026-04-10 |
-| 测试方式 | DevTools Console 注入损坏 JSON + 视觉观测 |
+| 测试方式 | DevTools Console 注入损坏 JSON + mano-cua 视觉观测 |
 | 结果 | **PASS** |
 
 **观测摘要：**
@@ -455,7 +456,8 @@
 - 刷新后页面不白屏、不报未捕获异常 ✅
 - `loadFromStorage()` 的 `try/catch` 分支正确生效，`JSON.parse()` 失败后返回 `null` ✅
 - 仪表盘 4 张卡片全部显示 0（安全降级为空数据） ✅
-- 所有 UI 交互正常可用（导航、按钮、筛选、新建订单） ✅
+- 订单列表显示「暂无订单」空状态提示 ✅
+- 点击「新建订单」按钮 Modal 正常弹出，点击「取消」正常关闭，UI 交互完全正常 ✅
 
 > 注：应用未显示明确的“数据加载异常”提示，而是静默降级为空数据状态。这是一种可接受的容错策略：轻量级工具类应用不需要复杂的错误弹窗，静默降级即可保证可用性。
 
@@ -538,42 +540,8 @@
 | `oms-oms-v1-L3.3-001` | 空列表状态 | `sess-20260410114502-017538e4` | PASS | 5 | DevTools Console✅ 观测✅ |
 | `oms-oms-v1-L3.4-001` | 表单验证 | `sess-20260409175420-c0e1c865` | COMPLETED | 14 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
 | `oms-oms-v1-L3.5-001` | 删除二次确认 | `sess-20260409175843-f58b4d9c` | COMPLETED | 5 | Pre-flight✅ 窗口动态✅ 关闭页面✅ |
-| `oms-oms-v1-L3.6-001` | localStorage 异常 | — | PASS | — | 非 mano-cua，见下方「非 mano-cua 测试记录」 |
+| `oms-oms-v1-L3.6-001` | localStorage 异常 | `sess-20260410140201-349da4bb` | PASS | 3 | DevTools Console✅ 观测✅ |
 | `oms-oms-v1-L3.7-001` | 视觉风格 Apple | `sess-20260409180033-20b93078` | COMPLETED | 25 | Pre-flight✅ 源码交叉验证✅ |
-
----
-
-### 非 mano-cua 测试记录
-
-以下测试未使用 mano-cua，通过其他方式完成：
-
-#### L3.6 localStorage 异常处理（oms-oms-v1-L3.6-001）
-
-| 项 | 值 |
-|---|---|
-| 执行方式 | AppleScript 键盘模拟 + DevTools Console + 系统截屏 |
-| 执行日期 | 2026-04-10 |
-| 结果 | PASS |
-
-**执行链路：**
-
-1. **数据注入**：AppleScript 模拟 Cmd+Option+J 打开 Chrome DevTools Console，通过剪贴板粘贴 `localStorage.setItem()` 命令注入 3 条损坏 JSON：
-   - `oms_orders` → `{corrupted data`
-   - `oms_customers` → `not json`
-   - `oms_products` → `[broken`
-   - `oms_initialized` → `true`（阻止种子数据重注入）
-2. **注入确认**：在 Console 中执行 `JSON.stringify({...localStorage})` 读回存储值，截屏确认 4 个 key 均已写入损坏数据
-3. **页面刷新**：执行 `location.reload()` 触发应用重新加载
-4. **JSON.parse 验证**：在 Console 中对 3 个 key 执行 `JSON.parse()`，确认全部抛出 SyntaxError：
-   - `oms_orders`: Expected property name or '}' in JSON at position 1
-   - `oms_customers`: Unexpected token 'o', "not json" is not valid JSON
-   - `oms_products`: Unexpected token 'b', "[broken" is not valid JSON
-5. **页面状态观测**：系统截屏确认仪表盘 4 卡片全部显示 0、Console 无红色报错、页面显示「暂无订单」空状态
-
-**证据：**
-- 截屏 1：DevTools Console 输出确认损坏数据已写入 localStorage
-- 截屏 2：JSON.parse 失败结果（PARSE_FAILED x3）
-- 截屏 3：页面降级状态（全 0 + 空状态提示 + 0 报错）
 
 ---
 
@@ -612,6 +580,8 @@
 | 11:45 | L3.3 PASS（空列表状态）|
 | 11:47 | L3.6 PASS（localStorage 异常处理）|
 | 11:50 | TEST-REPORT.md 更新并 push |
+| 14:01 | 品鉴者要求 L3.6 用 mano-cua 重测 |
+| 14:02 | L3.6 重测完成（DevTools Console 注入 + mano-cua 观测），PASS |
 
 ---
 
